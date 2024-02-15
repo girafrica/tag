@@ -69,6 +69,9 @@ pipeline {
                     cloneToLocation('https://github.com/girafrica/release-management.git', 'github-app', 'main', 'release')
 
                     createTag(version)
+
+                    lastTag = sh script: " curl google.com", returnStdout: true
+
                 }
             }
         }
