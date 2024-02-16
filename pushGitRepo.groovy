@@ -4,9 +4,9 @@ def choiceArray = []
 
 pipeline {
     agent any
-    // options {
-    //     skipDefaultCheckout()
-    // }
+    options {
+        skipDefaultCheckout()
+    }
 
     
     stages {  
@@ -69,9 +69,6 @@ pipeline {
                     cloneToLocation('https://github.com/girafrica/release-management.git', 'github-app', 'main', 'release')
 
                     createTag(version)
-
-                    lastTag = sh script: " curl google.com", returnStdout: true
-
                 }
             }
         }
