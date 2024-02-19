@@ -67,7 +67,6 @@ pipeline {
                     currentDateTime = sh script: """date +"v%Y.%V" """.trim(), returnStdout: true
                     version = currentDateTime.trim()  // the .trim() is necessary
                     cloneToLocation('https://github.com/girafrica/release-management.git', 'github-app', 'main', 'release')
-                    parameters [string(name: 'CREDENTIALS_ID', value: 'other_credentials_id')]
 
                     createTag(version)
                 }
