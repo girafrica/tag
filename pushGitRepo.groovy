@@ -112,5 +112,18 @@ pipeline {
                 }
             }
         }
+
+        stage('Check changes') {
+            steps {
+                script {
+                    cloneToLocation('https://github.com/girafrica/release-management.git', 'github-app', 'main', 'chages')
+                    sh (" cd changes ")
+
+                    def change = sh(returnStdout: true, script: 'git log $(git describe --tags --abbrev=0)..HEAD --oneline').trim()
+
+                    println "Change: ${change}"
+                }
+            }
+        }
     }
 }
