@@ -118,7 +118,7 @@ pipeline {
                 script {
                     cloneToLocation('https://github.com/girafrica/test1.git', 'github-app', 'main', 'changes')
                     sh (" cd ${workspace}/changes ")
-
+                    sh (' git fetch https://github.com/girafrica/test1.git ')
                     def change = sh(returnStdout: true, script: 'git log $(git describe --tags --abbrev=0)..HEAD --oneline').trim()
 
                     println "Change: ${change}"
