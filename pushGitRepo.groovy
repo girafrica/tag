@@ -9,7 +9,23 @@ pipeline {
     }
 
     
-    stages {  
+    stages {
+        stage('Check changes') {
+            steps {
+                script {
+                    dir ("changes"){
+                        sh (' ls -l ')
+                        cloneToLocation('https://github.com/girafrica/test1.git', 'github-app', 'main', '.')
+                        //sh (' git fetch https://github.com/girafrica/test1.git ')
+                        def change = sh(returnStdout: true, script: 'git log $(git describe --tags --abbrev=0)..HEAD --oneline').trim()
+                        sh (' ls -l ')
+                        println "Change: ${change}"
+                        deleteDir()
+                    }
+                }
+            }
+        }
+
         //     stage('show available date') {
         //   steps {
         //     sh '''
@@ -109,22 +125,6 @@ pipeline {
                     //     sh (" git commit -am 'Updated version number to ${version}.${env.BUILD_ID}'")
                     //     sh (' git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/girafrica/release-tags HEAD:main')
                     // }
-                }
-            }
-        }
-
-        stage('Check changes') {
-            steps {
-                script {
-                    dir ("changes"){
-                        sh (' ls -l ')
-                        cloneToLocation('https://github.com/girafrica/test1.git', 'github-app', 'main', '.')
-                        //sh (' git fetch https://github.com/girafrica/test1.git ')
-                        def change = sh(returnStdout: true, script: 'git log $(git describe --tags --abbrev=0)..HEAD --oneline').trim()
-                        sh (' ls -l ')
-                        println "Change: ${change}"
-                        deleteDir()
-                    }
                 }
             }
         }
