@@ -116,13 +116,15 @@ pipeline {
         stage('Check changes') {
             steps {
                 script {
-                    sh (' ls -l ')
-                    cloneToLocation('https://github.com/girafrica/test1.git', 'github-app', 'main', 'changes')
-                    sh (" cd changes ")
-                    sh (' git fetch https://github.com/girafrica/test1.git ')
-                    def change = sh(returnStdout: true, script: 'git log $(git describe --tags --abbrev=0)..HEAD --oneline').trim()
-                    sh (' ls -l ')
-                    println "Change: ${change}"
+                    dir ("changes"){
+                        sh (' ls -l ')
+                        cloneToLocation('https://github.com/girafrica/test1.git', 'github-app', 'main', '.')
+                        //sh (' git fetch https://github.com/girafrica/test1.git ')
+                        def change = sh(returnStdout: true, script: 'git log $(git describe --tags --abbrev=0)..HEAD --oneline').trim()
+                        sh (' ls -l ')
+                        println "Change: ${change}"
+                        deleteDir()
+                    }
                 }
             }
         }
