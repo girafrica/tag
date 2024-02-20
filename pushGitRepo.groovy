@@ -92,7 +92,7 @@ pipeline {
         stage('Save tag') {
             steps {
                 script {
-
+                    setVersionTag()    
                     saveTag(version)
 
                     // withCredentials([usernamePassword(credentialsId: 'github-app', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
