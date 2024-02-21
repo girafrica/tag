@@ -80,6 +80,8 @@ pipeline {
         stage('Create tag') {
             steps {
                 script {
+                    echo 'Setting git safe.directory'
+                    sh "git config --global --add safe.directory '*'"
                     currentDateTime = sh script: """date +"v%Y.%V" """.trim(), returnStdout: true
                     version = currentDateTime.trim()  // the .trim() is necessary
                     cloneToLocation('https://github.com/girafrica/release-management.git', 'github-app', 'main', 'release')
@@ -92,6 +94,8 @@ pipeline {
         stage('Save tag') {
             steps {
                 script {
+                    echo 'Setting git safe.directory'
+                    sh "git config --global --add safe.directory '*'"
                     setVersionTag()    
                     saveTag(version)
 
