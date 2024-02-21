@@ -82,6 +82,8 @@ pipeline {
                 script {
                     echo 'Setting git safe.directory'
                     sh "git config --global --add safe.directory '*'"
+                    sh "git config --global user.name 'noreply@3d.com'"
+                    sh "git config --global user.email 'noreply@d.com'"
                     currentDateTime = sh script: """date +"v%Y.%V" """.trim(), returnStdout: true
                     version = currentDateTime.trim()  // the .trim() is necessary
                     cloneToLocation('https://github.com/girafrica/release-management.git', 'github-app', 'main', 'release')
@@ -96,6 +98,8 @@ pipeline {
                 script {
                     echo 'Setting git safe.directory'
                     sh "git config --global --add safe.directory '*'"
+                    sh "git config --global user.name 'noreply@3d.com'"
+                    sh "git config --global user.email 'noreply@d.com'"
                     setVersionTag()    
                     saveTag(version)
 
