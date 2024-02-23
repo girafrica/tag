@@ -78,6 +78,9 @@ pipeline {
         // }
 
         stage('Create tag') {
+            when {
+                expression { change != null }
+            }
             steps {
                 script {
                     echo 'Setting git safe.directory'
@@ -94,6 +97,9 @@ pipeline {
         }
 
         stage('Save tag') {
+            when {
+                expression { change != null }
+            }
             steps {
                 script {
                     echo 'Setting git safe.directory'
