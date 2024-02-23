@@ -79,7 +79,7 @@ pipeline {
 
         stage('Create tag') {
             when {
-                expression { ${change} != null }
+                expression { change != '' }
             }
             steps {
                 script {
@@ -98,7 +98,7 @@ pipeline {
 
         stage('Save tag') {
             when {
-                expression { change != null }
+                expression { change != '' }
             }
             steps {
                 script {
