@@ -73,7 +73,7 @@ pipeline {
                     sh "git config --global --add safe.directory '*'"
                     sh "git config --global user.name 'noreply@3d.com'"
                     sh "git config --global user.email 'noreply@d.com'"
-                    currentDateTime = sh script: """date +"v%Y.%V" """.trim(), returnStdout: true
+                    currentDateTime = sh script: """date +"%Y.%V" """.trim(), returnStdout: true
                     version = currentDateTime.trim()  // the .trim() is necessary
                     cloneToLocation('https://github.com/girafrica/release-management.git', 'github-app', 'main', 'release')
 
@@ -135,7 +135,8 @@ pipeline {
                     dir ("changes"){
                         sh (' ls -l ')
                         cloneToLocation('https://github.com/girafrica/test1.git', 'github-app', 'main', '.')
-                        change = sh(returnStdout: true, script: 'git log $(git describe --tags --abbrev=0)..HEAD --oneline').trim()
+                        //change = sh(returnStdout: true, script: 'git log $(git describe --tags --abbrev=0)..HEAD --oneline').trim()
+                        change = sh(returnStdout: true, script: "git diff --name-only HEAD ${version}.${env.BUILD_ID}").trim()
                         sh (' ls -l ')
                         println "Change: ${change}"
                         deleteDir()
