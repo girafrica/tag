@@ -140,7 +140,7 @@ pipeline {
 
                         last_tag = sh(returnStdout: true, script: "git describe --abbrev=0 --tags").trim()
                         prev_tag = sh(returnStdout: true, script: "git tag --sort=-creatordate | grep -A 1 ${last_tag} | tail -n 1").trim()
-                        change = sh(returnStdout: true, script: "git diff ${prev_tag} ${last_tag} -- VERSION").trim()
+                        change = sh(returnStdout: true, script: "git diff ${prev_tag} ${last_tag}").trim()
 
                         sh (' ls -l ')
                         println "Change: ${change}"
