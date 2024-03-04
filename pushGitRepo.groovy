@@ -136,7 +136,12 @@ pipeline {
                         sh (' ls -l ')
                         cloneToLocation('https://github.com/girafrica/test1.git', 'github-app', 'main', '.')
                         //change = sh(returnStdout: true, script: 'git log $(git describe --tags --abbrev=0)..HEAD --oneline').trim()
-                        change = sh(returnStdout: true, script: "git diff --name-only HEAD ${version}.${env.BUILD_ID}").trim()
+                        //change = sh(returnStdout: true, script: "git diff --name-only HEAD ${version}.${env.BUILD_ID}").trim()
+
+                        last_tag = sh(returnStdout: true, script: "git describe --abbrev=0 --tags").trim()
+                        prev_tag = sh(returnStdout: true, script: "git tag --sort=-creatordate | grep -A 1 ${last_tag} | tail -n 1").trim()
+                        change = sh(returnStdout: true, script: "git diff ${prev_tag} ${last_tag} -- VERSION").trim()
+
                         sh (' ls -l ')
                         println "Change: ${change}"
                         deleteDir()
