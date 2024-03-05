@@ -178,6 +178,7 @@ pipeline {
                     // }
                     // }
                     // parallel branches
+                    sh("ls -a")
                     buildImages()
                 }
             }
