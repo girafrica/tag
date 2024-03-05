@@ -152,9 +152,18 @@ pipeline {
 
         stage ('Invoke_pipeline') {
             steps {
-                build job: 'tag-2-test/get-version/main', parameters: [
-                string(name: 'param1', value: "value1")
-                ]
+                script {
+                // Trigger another pipeline and check result of this
+                ret = build(job: 'tag-2-test/get-version', 
+                                parameters: [
+                                    string(name: 'param1', value: "value1")
+                                ],
+                                propagate: true,
+                                wait: true)
+
+                echo ret.result
+                currentBuild.result = ret.result
+                }
             }
         }
     }
