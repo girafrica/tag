@@ -149,5 +149,13 @@ pipeline {
                 }
             }
         }
+
+        stage ('Invoke_pipeline') {
+            steps {
+                build job: 'tag-2-test/get-version', parameters: [
+                string(name: 'param1', value: "value1")
+                ]
+            }
+        }
     }
 }
