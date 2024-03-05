@@ -157,6 +157,10 @@ pipeline {
                 ret = build(job: '../tag-2-test/get-version', propagate: true, wait: true)
                 echo ret.result
                 currentBuild.result = ret.result
+
+                ret2 = build(job: '../tag-2-test/get-version', propagate: true, wait: true)
+                echo ret2.result
+                currentBuild.result = ret2.result
                 }
             }
         }
