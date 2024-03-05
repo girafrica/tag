@@ -150,19 +150,30 @@ pipeline {
             }
         }
 
-        stage ('Invoke_pipeline') {
-            steps {
-                script {
-                // Trigger another pipeline and check result of this
-                ret = build(job: '../tag-2-test/get-version', propagate: true, wait: true)
-                echo ret.result
-                currentBuild.result = ret.result
+        // stage ('Invoke_pipeline') {
+        //     steps {
+        //         script {
+        //         // Trigger another pipeline and check result of this
+        //         ret = build(job: '../tag-2-test/get-version', propagate: true, wait: false)
+        //         echo ret.result
+        //         currentBuild.result = ret.result
 
-                ret2 = build(job: '../tag-2-test/get-version', propagate: true, wait: true)
-                echo ret2.result
-                currentBuild.result = ret2.result
+        //         ret2 = build(job: '../tag-2-test/get-version', propagate: true, wait: true)
+        //         echo ret2.result
+        //         currentBuild.result = ret2.result
+        //         }
+        //     }
+        // }
+        stage('testing') {
+            def jobs = [:]
+
+            [1,2,3,4,5].each{
+                i -> jobs["Test${i}"] = {
+                    build job: '../tag-2-test/get-version', 
+                    quietPeriod: 2
                 }
             }
+            parallel jobs
         }
     }
 }
