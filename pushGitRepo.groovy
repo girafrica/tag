@@ -165,6 +165,7 @@ pipeline {
         //     }
         // }
         stage('testing') {
+            steps {
             def jobs = [:]
 
             [1,2,3,4,5].each{
@@ -174,6 +175,7 @@ pipeline {
                 }
             }
             parallel jobs
+        }
         }
     }
 }
