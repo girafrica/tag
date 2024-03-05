@@ -179,6 +179,7 @@ pipeline {
                     // }
                     // parallel branches
                     sh("ls -a")
+                    cloneToLocation('https://github.com/girafrica/release-management.git', 'github-app', 'main', 'release')
                     buildImages()
                 }
             }
