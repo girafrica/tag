@@ -154,7 +154,7 @@ pipeline {
             steps {
                 script {
                 // Trigger another pipeline and check result of this
-                ret = build(job: 'tag-2-test/get-version', 
+                ret = build(job: '../tag-2-test/get-version', 
                                 parameters: [
                                     string(name: 'param1', value: "value1")
                                 ],
