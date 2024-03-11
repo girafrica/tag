@@ -164,25 +164,25 @@ pipeline {
         //         }
         //     }
         // }
-        stage('testing') {
-            steps {
-                script{
-                    // def branches = [:]
+        // stage('testing') {
+        //     steps {
+        //         script{
+        //             // def branches = [:]
 
-                    // for (int i = 0; i < 4; i++) {
-                    // def index = i //if we tried to use i below, it would equal 4 in each job execution.
-                    // branches["branch${i}"] = {
-                    //     build job: '../tag-2-test/get-version', parameters: [
-                    //     string(name: 'param1', value:'test_param'),
-                    //     string(name:'dummy', value: "${index}")]
-                    // }
-                    // }
-                    // parallel branches
-                    sh("ls -a")
-                    cloneToLocation('https://github.com/girafrica/release-management.git', 'github-app', 'main', 'release')
-                    buildImages()
-                }
-            }
-        }
+        //             // for (int i = 0; i < 4; i++) {
+        //             // def index = i //if we tried to use i below, it would equal 4 in each job execution.
+        //             // branches["branch${i}"] = {
+        //             //     build job: '../tag-2-test/get-version', parameters: [
+        //             //     string(name: 'param1', value:'test_param'),
+        //             //     string(name:'dummy', value: "${index}")]
+        //             // }
+        //             // }
+        //             // parallel branches
+        //             sh("ls -a")
+        //             cloneToLocation('https://github.com/girafrica/release-management.git', 'github-app', 'main', 'release')
+        //             buildImages()
+        //         }
+        //     }
+        // }
     }
 }
